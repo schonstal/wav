@@ -22,9 +22,10 @@ public class Sinus : MonoBehaviour
 
   private double theta;
   private float amplitude;
+  private double sinAmt;
 
   void OnAudioFilterRead(float[] data, int channels) {
-    double sinAmt = frequency * tau / sampleRate;
+    sinAmt = frequency * tau / sampleRate;
 
     for (var i = 0; i < data.Length; i = i + channels) {
       theta = theta + sinAmt;
