@@ -17,6 +17,8 @@ public class Sinus : MonoBehaviour
   public float oscillationRate = 1f;
   public float oscillationOffset = 0f;
 
+  private bool started = false;
+
   private float oscTheta = 0f;
   private double tau = 2 * Math.PI;
 
@@ -42,9 +44,13 @@ public class Sinus : MonoBehaviour
   }
 
   void Update() {
-    if (oscillate) {
+    if (Input.GetKeyDown("space")) {
+      started = true;
+    }
+
+    if (oscillate && started) {
       oscTheta += (float)(Time.deltaTime * tau * oscillationRate);
-      float oscPosition = ((float)Math.Sin(oscTheta + oscillationOffset) + 1) / 2f;
+      float oscPosition = ((float)Math.Cos(oscTheta + oscillationOffset) + 1) / 2f;
 
       frequency = Mathf.Lerp(
         oscillationEnd,
@@ -54,8 +60,8 @@ public class Sinus : MonoBehaviour
 
       if (scale) {
         transform.localScale = new Vector3(
-          Mathf.Lerp(0, 6, oscPosition),
-          Mathf.Lerp(0, 6, oscPosition)
+          Mathf.Lerp(0, 8, oscPosition),
+          Mathf.Lerp(0, 8, oscPosition)
         );
       }
 
