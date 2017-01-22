@@ -11,8 +11,6 @@ public class Target : MonoBehaviour {
   }
 
   void Update() {
-    if(Camera.current == null) { return; }
-
     transform.position += ((float)(Time.deltaTime * speed) * direction);
   }
 }
