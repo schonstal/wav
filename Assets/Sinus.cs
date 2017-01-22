@@ -62,5 +62,16 @@ public class Sinus : MonoBehaviour
         transform.eulerAngles = new Vector3(0, 0, (float)Math.Sin(oscTheta + oscillationOffset) * 60f);
       }
     }
+
+    float xAxisValue = Input.GetAxis("Horizontal") * -0.1f * transform.position.z;
+    transform.Translate(new Vector3(xAxisValue, 0, 0));
+
+      frequency = Mathf.Lerp(
+        oscillationEnd,
+        oscillationStart,
+        Math.Abs(transform.position.x/12)
+      );
+
+      gain = 0.2 * Math.Abs((12 - transform.position.x)/12);
   }
 }

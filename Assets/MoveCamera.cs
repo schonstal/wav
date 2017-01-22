@@ -10,8 +10,5 @@ public class MoveCamera : MonoBehaviour {
   void Update() {
     if(Camera.current == null) { return; }
 
-    float xAxisValue = Input.GetAxis("Horizontal") * speed;
-    float yAxisValue = Input.GetAxis("Vertical") * speed;
-    Camera.current.transform.Translate(new Vector3(xAxisValue, yAxisValue, 0));
   }
 }
