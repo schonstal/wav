@@ -12,12 +12,11 @@ public class Sinus : MonoBehaviour
 
   public bool swing = false;
   public bool oscillate = false;
+  public bool activated = true;
   public float oscillationStart = 80f;
   public float oscillationEnd = 100f;
   public float oscillationRate = 1f;
   public float oscillationOffset = 0f;
-
-  private bool started = false;
 
   private float oscTheta = 0f;
   private double tau = 2 * Math.PI;
@@ -44,11 +43,9 @@ public class Sinus : MonoBehaviour
   }
 
   void Update() {
-    if (Input.GetKeyDown("space")) {
-      started = true;
-    }
+    if (Input.GetKeyDown("space")) { activated = true; }
 
-    if (oscillate && started) {
+    if (oscillate && activated) {
       oscTheta += (float)(Time.deltaTime * tau * oscillationRate);
       float oscPosition = ((float)Math.Cos(oscTheta + oscillationOffset) + 1) / 2f;
 

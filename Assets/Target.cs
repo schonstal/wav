@@ -7,10 +7,18 @@ public class Target : MonoBehaviour {
   public double speed = 1;
   public Vector3 direction = Vector3.right;
 
+  private bool started = false;
+
   void Start() {
   }
 
   void Update() {
-    transform.position += ((float)(Time.deltaTime * speed) * direction);
+    if (Input.GetKeyDown("space")) {
+      started = true;
+    }
+
+    if (started) {
+      transform.position += ((float)(Time.deltaTime * speed) * direction);
+    }
   }
 }
