@@ -18,9 +18,13 @@ public class Sinus : MonoBehaviour
   public float oscillationRate = 1f;
   public float oscillationOffset = 0f;
 
+  public Transform target;
+
   private float oscTheta = 0f;
   private double tau = 2 * Math.PI;
   private bool activated = true;
+
+  private bool on = false;
 
   private double theta;
   private float amplitude;
@@ -57,6 +61,19 @@ public class Sinus : MonoBehaviour
       float oscPosition = ((float)Math.Cos(oscTheta + oscillationOffset) + 1) / 2f;
 
       if (requiresActivation && oscTheta > tau) {
+        if (target != null && target.localScale.x < 0.25) {
+          oscillationStart += 20f;
+          oscillationEnd += 20f;
+          oscillationRate += 0.05f;
+
+          if (on) {
+            Camera.main.backgroundColor = Color.black;
+          } else {
+            Camera.main.backgroundColor = Color.white;
+          }
+          on = !on;
+        }
+
         activated = false;
         oscTheta = 0;
       }
