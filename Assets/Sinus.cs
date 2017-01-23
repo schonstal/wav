@@ -12,7 +12,7 @@ public class Sinus : MonoBehaviour
 
   public bool swing = false;
   public bool oscillate = false;
-  public bool activated = true;
+  public bool requiresActivation = false;
   public float oscillationStart = 80f;
   public float oscillationEnd = 100f;
   public float oscillationRate = 1f;
@@ -20,10 +20,17 @@ public class Sinus : MonoBehaviour
 
   private float oscTheta = 0f;
   private double tau = 2 * Math.PI;
+  private bool activated = true;
 
   private double theta;
   private float amplitude;
   private double sinAmt;
+
+  void Start() {
+    if (requiresActivation) {
+      activated = false;
+    }
+  }
 
   void OnAudioFilterRead(float[] data, int channels) {
     sinAmt = frequency * tau / sampleRate;
@@ -48,6 +55,11 @@ public class Sinus : MonoBehaviour
     if (oscillate && activated) {
       oscTheta += (float)(Time.deltaTime * tau * oscillationRate);
       float oscPosition = ((float)Math.Cos(oscTheta + oscillationOffset) + 1) / 2f;
+
+      if (requiresActivation && oscTheta > tau) {
+        activated = false;
+        oscTheta = 0;
+      }
 
       frequency = Mathf.Lerp(
         oscillationEnd,
