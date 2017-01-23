@@ -61,7 +61,7 @@ public class Sinus : MonoBehaviour
       float oscPosition = ((float)Math.Cos(oscTheta + oscillationOffset) + 1) / 2f;
 
       if (requiresActivation && oscTheta > tau) {
-        if (target != null && target.localScale.x < 0.25) {
+        if (target != null && target.localScale.x <= 0.1) {
           oscillationStart += 20f;
           oscillationEnd += 20f;
           oscillationRate += 0.05f;
